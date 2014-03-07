@@ -1,10 +1,7 @@
 #jquery.inputfit.js
-Plugin that makes the input fit the value or the value fit the input.
-See the [demo](http://vxsx.github.io/jquery.inputfit.js/)
-Plugin fits text by either changing the font-size or the width of the
-input, depending on your settings. You can set min and max font-size
-and width values values. If you don't specify max font-size, plugin
-assumes current font-size is maximum.
+Plugin that makes the input fit the value or the value fit the input. See the [demo](http://vxsx.github.io/jquery.inputfit.js/)
+
+Plugin fits text by either changing the font-size or the width of the input, depending on your settings. You can set min and max font-size and width values values. If you don't specify max font-size, plugin assumes current font-size is maximum.
 
 
 Requires
