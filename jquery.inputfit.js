@@ -10,8 +10,9 @@
 }(function ($) {
     $.fn.inputfit = function(options) {
         var settings = $.extend({
-            minSize   : 10,
-            maxSize   : false
+            minSize    : 10,
+            maxSize    : false,
+            resizeType : "font-size"
         }, options);
 
         this.each(function() {
@@ -41,20 +42,35 @@
                 $input.data('inputfit-clone', clone);
             }
 
-            $input.on('keyup.inputfit keydown.inputfit', function() {
+            $input.on('keydown.inputfit', function() {
                 var $this = $(this);
 
-                clone.html($this.val().replace(/ /g, '&nbsp;'));
+                // Set 1ms timeout, otherwise value isn't yet updated on keydown event
+                setTimeout(function(){
+                    clone.html($this.val().replace(/ /g, '&nbsp;'));
 
-                var ratio = width / (clone.width() || 1),
-                    currentFontSize = parseInt( $this.css('font-size'), 10 ),
-                    fontSize = Math.floor(currentFontSize * ratio);
+                    if (settings.resizeType == "width") {
+                        // 2 as an arbitrary number for a little extra padding so text doesn't get cut off
+                        var inputWidth = clone.width() + 2;
 
-                if (fontSize > maxSize) { fontSize = maxSize; }
-                if (fontSize < settings.minSize) { fontSize = settings.minSize; }
+                        if(settings.maxSize && inputWidth > maxSize) { inputWidth = maxSize; }
+                        if(inputWidth < settings.minSize) { inputWidth = settings.minSize; }
 
-                $this.css('font-size', fontSize);
-                clone.css('font-size', fontSize);
+                        $this.css('width', inputWidth);
+                    } else {
+                        var ratio = width / (clone.width() || 1),
+                            currentFontSize = parseInt( $this.css('font-size'), 10 ),
+                            fontSize = Math.floor(currentFontSize * ratio);
+
+                        if (fontSize > maxSize) { fontSize = maxSize; }
+                        if (fontSize < settings.minSize) { fontSize = settings.minSize; }
+
+                        $this.css('font-size', fontSize);
+                        clone.css('font-size', fontSize);
+                    }
+                }, 1);
+
+
             });
         });
 
