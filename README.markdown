@@ -16,15 +16,17 @@ Default options
 ``` javascript
 minSize    : 10
 maxSize    : false
-resizeType : "font-size"
+resizeType : "font-size" // or "width"
 ```
 
 Using:
 
 ``` html
 <input type="text" name="younameit" id="input">
+<input type="text" name="younameit" id="input-width">
 <script type="text/javascript">
-    $('input').inputfit();
+    $('#input').inputfit();
+    $('#input-width').inputfit({ resizeType: "width" });
 </script>
 ```
 
